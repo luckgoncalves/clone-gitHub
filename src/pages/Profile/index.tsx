@@ -1,12 +1,39 @@
 import React from 'react';
 
-import { Container, Main, LeftSide, RigthSide } from './styles';
 import ProfileData from '../../components/ProfileData';
+import RandomCalendar from '../../components/RandomCalendar';
+import RepoCard from '../../components/RepoCard';
 
+import { 
+  Container, 
+  Main, 
+  LeftSide, 
+  RigthSide, 
+  Repos,
+  CalendarHeading, 
+  Tab,
+  RepoIcon } from './styles';
 
 const Profile: React.FC = () => {
+  const TabContent = () => (
+    <div className="content">
+      <RepoIcon />
+      <span className="label">Repositories</span>
+      <span className="number">26</span>
+    </div>
+  )
+
+
   return (
     <Container>
+      <Tab className="desktop">
+        <div className="wrapper">
+          <span className="offset" />
+          <TabContent />
+        </div>
+
+        <span className="line" />
+      </Tab>
       <Main>
         <LeftSide>
           <ProfileData 
@@ -22,7 +49,35 @@ const Profile: React.FC = () => {
           />
         </LeftSide>
 
-        <RigthSide></RigthSide>
+        <RigthSide>
+          <Tab className="mobile">
+            <TabContent />
+            <span className="line" />
+          </Tab>
+
+          <Repos>
+            <h2>Repos</h2>
+            <div>
+              {Array.from({length: 6}).map((n, index) => (
+                <RepoCard
+                  key={index}
+                  username={'lucasgoncalves'}
+                  reponame={'youtube'}
+                  description={'Descricao repo'}
+                  language={index % 3 === 0? 'JavaScript' : 'TypeScript'}
+                  stars={8}
+                  forks={4}
+                />
+              ))}
+            </div>
+          </Repos>
+
+          <CalendarHeading>
+            Ramdom calendar (do not represent actual data)
+          </CalendarHeading>
+
+          <RandomCalendar />
+        </RigthSide>
       </Main>
     </Container>
   );
